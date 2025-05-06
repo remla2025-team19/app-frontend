@@ -5,10 +5,8 @@ function useFetchVersion(url) {
     const [version, setVersion] = useState('Loading...');
   
     useEffect(() => {
-        const fullUrl = `${import.meta.env.VITE_APP_SERVICE_URL}/api/version`;
-        console.log('🌐 Fetching version from:', fullUrl);
-      
-        fetch(fullUrl)
+        console.log('🌐 Fetching version from:', url);
+        fetch(url)
           .then(res => res.json())
           .then(data => {
             console.log('✅ Response:', data);
@@ -18,7 +16,7 @@ function useFetchVersion(url) {
             console.error('❌ Fetch error:', err);
             setVersion('Error fetching');
           });
-      }, []);
+      }, [url]);
   
     return version;
   }
