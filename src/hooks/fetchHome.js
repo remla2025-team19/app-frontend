@@ -2,25 +2,26 @@
 import { useEffect, useState } from 'react';
 
 function useFetchVersion(url) {
-    const [version, setVersion] = useState('Loading...');
+    const [versions, setVersions] = useState({ appVersion: 'Loading...', modelServiceVersion: 'Loading...' });
   
     useEffect(() => {
-        const fullUrl = `${import.meta.env.VITE_APP_SERVICE_URL}/api/version`;
-        console.log('🌐 Fetching version from:', fullUrl);
-      
-        fetch(fullUrl)
+        console.log('🌐 Fetching versions from:', url);
+        fetch(url)
           .then(res => res.json())
           .then(data => {
             console.log('✅ Response:', data);
-            setVersion(data.version || data.model_version || 'No version');
+            setVersions({
+              appVersion: data.appVersion || 'N/A', // Assuming API returns data.appVersion
+              modelServiceVersion: data.modelServiceVersion || 'N/A' // Assuming API returns data.modelServiceVersion
+            });
           })
           .catch((err) => {
             console.error('❌ Fetch error:', err);
-            setVersion('Error fetching');
+            setVersions({ appVersion: 'Error', modelServiceVersion: 'Error' });
           });
-      }, []);
+      }, [url]);
   
-    return version;
+    return versions;
   }
 
 export default useFetchVersion;
