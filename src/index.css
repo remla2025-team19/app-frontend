@@ -1,0 +1,46 @@
+.query-box {
+    background-color: #4b775d;
+    border-radius: 8px;
+    padding: 2rem;
+    max-width: 600px;
+    margin: 2rem auto;
+    text-align: center;
+    color: #fff6ec;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .query-box input {
+    width: 80%;
+    padding: 0.6rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 6px;
+    border: 1px solid #333;
+  }
+  
+  .query-box button {
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #fff6ec;
+    border: none;
+    border-radius: 5px;
+    color: #2d3d2a;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .query-box button:hover {
+    background-color: #e6dbc7;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #fdf6ec;
+    color: #1e1e1e;
+    margin: 0;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  
