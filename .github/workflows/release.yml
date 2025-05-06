@@ -1,0 +1,32 @@
+name: Release Frontend
+
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set version from tag
+        run: echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GH_TOKEN }}
+
+      - name: Build and push Docker image
+        run: |
+          IMAGE="ghcr.io/${{ github.repository }}"
+          IMAGE=${IMAGE,,}  # lowercase
+          docker build -t $IMAGE:${{ env.version }} -t $IMAGE:latest .
+          docker push $IMAGE:${{ env.version }}
+          docker push $IMAGE:latest

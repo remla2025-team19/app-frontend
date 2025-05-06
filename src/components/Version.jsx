@@ -9,7 +9,7 @@ function Version() {
 
   return (
     <div style={{ marginBottom: '2rem' }}>
-      <h3>Service Versions</h3>
+      {/* <h3>Service Versions</h3> */}
       <p><strong>App version:</strong> {appVersion}</p>
       <p><strong>Model-service version:</strong> {modelVersion}</p>
     </div>
