@@ -21,8 +21,19 @@ function QueryForm() {
         }
     }
 
-    function handleFeedback(value) {
+    async function handleFeedback(value) {
         setFeedback(value);
+
+        try {
+            await fetch("/api/feedback", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ query, feedback: value === 'yes' ? 1 : 0 })
+                // body: JSON.stringify({ query, feedback: value })
+            });
+        } catch (error) {
+            console.error("Failed to send feedback", error);
+        }
 
         // You can later replace this with a real API call:
         // fetch('/api/feedback', { ... })
@@ -58,6 +69,8 @@ function QueryForm() {
             )}
         </div>
     );
+
+
 
 
     //   return (
