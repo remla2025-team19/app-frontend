@@ -20,7 +20,7 @@ export default function HomePage() {
   return (
     <div style={{ backgroundColor: '#fff6ec', minHeight: '100vh', padding: '2rem' }}>
       <div style={{ 
-        backgroundColor: '#090224',
+        backgroundColor: '#4c775d',
         borderRadius: '10px',
         padding: '2rem',
         color: 'white',
