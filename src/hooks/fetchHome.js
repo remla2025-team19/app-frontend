@@ -1,12 +1,13 @@
 // A custom hook: handles the logic for fetching from a given URL
 import { useEffect, useState } from 'react';
+import { fetchWithUserHeader } from '../fetchWithUserHeader';
 
 function useFetchVersion(url) {
     const [versions, setVersions] = useState({ appVersion: 'Loading...', modelServiceVersion: 'Loading...' });
   
     useEffect(() => {
         console.log('🌐 Fetching versions from:', url);
-        fetch(url)
+        fetchWithUserHeader(url)
           .then(res => res.json())
           .then(data => {
             console.log('✅ Response:', data);

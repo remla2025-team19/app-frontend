@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { fetchWithUserHeader } from '../fetchWithUserHeader';
 
 function QueryForm() {
     const [query, setQuery] = useState('');
@@ -7,10 +8,10 @@ function QueryForm() {
 
     async function handleSubmit() {
         try {
-            const res = await fetch("api/query", {
+            const res = await fetchWithUserHeader('api/query', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ query })
+                body: JSON.stringify({ query }),
             });
 
             const data = await res.json();
@@ -25,14 +26,17 @@ function QueryForm() {
         setFeedback(value);
 
         try {
-            await fetch("/api/feedback", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ query, feedback: value === 'yes' ? 1 : 0 })
+            await fetchWithUserHeader('/api/feedback', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    query,
+                    feedback: value === 'yes' ? 1 : 0,
+                }),
                 // body: JSON.stringify({ query, feedback: value })
             });
         } catch (error) {
-            console.error("Failed to send feedback", error);
+            console.error('Failed to send feedback', error);
         }
 
         // You can later replace this with a real API call:
@@ -53,25 +57,32 @@ function QueryForm() {
 
             {response && (
                 <div style={{ marginTop: '1rem' }}>
-                    <p><strong>Our response:</strong></p>
-                    <p><em>[{response}]</em></p>
+                    <p>
+                        <strong>Our response:</strong>
+                    </p>
+                    <p>
+                        <em>[{response}]</em>
+                    </p>
 
                     {feedback === null ? (
                         <div>
                             <h4>Are you satisfied with this response?</h4>
-                            <button onClick={() => handleFeedback('yes')}>👍</button>
-                            <button onClick={() => handleFeedback('no')}>👎</button>
+                            <button onClick={() => handleFeedback('yes')}>
+                                👍
+                            </button>
+                            <button onClick={() => handleFeedback('no')}>
+                                👎
+                            </button>
                         </div>
                     ) : (
-                        <p><em>Thanks for your feedback!</em></p>
+                        <p>
+                            <em>Thanks for your feedback!</em>
+                        </p>
                     )}
                 </div>
             )}
         </div>
     );
-
-
-
 
     //   return (
     //     <div style={{ marginTop: '2rem' }}>
